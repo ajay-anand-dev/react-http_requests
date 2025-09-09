@@ -1,0 +1,39 @@
+export async function fetchAvailablePlaces() {
+    const response = await fetch('https://hzf4j9-3000.csb.app/places')
+    const resData = await response.json()
+
+    if (!response.ok) {
+        throw new Error('Failed to fetch places')
+    }
+
+    return resData.places;
+}
+
+export async function fetchUserPlaces() {
+    const response = await fetch('https://hzf4j9-3000.csb.app/user-places')
+    const resData = await response.json()
+
+    if (!response.ok) {
+        throw new Error('Failed to fetch user places')
+    }
+
+    return resData.places;
+}
+
+export async function updateUserPlaces(places) {
+    const response = await fetch('https://hzf4j9-3000.csb.app/user-places', {
+        method: 'PUT',
+        body: JSON.stringify({ places }), //have to attach json only, body
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    const resData = await response.json();
+
+    if (!response.ok) {
+        throw new Error('Failed to update user data.');
+    }
+
+    return resData.message;
+}
